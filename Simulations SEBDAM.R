@@ -1,4 +1,5 @@
 #Simulations for spatial model
+# setwd("./Github/SPA3-Case-Study")
 rm(list=ls())
 library(TMB)
 library(sp)
@@ -248,7 +249,7 @@ par$omega_m<-matrix(rep(0,mesh$n*((data$n_t+1))),ncol=(data$n_t+1))
 par$pred_B<-rep(log(3000),data$n_s)
 par$pred_m<-rep(log(0.1),data$n_s)
 
-nrep<-200
+nrep<-3
 Report_list<-list()
 sim_save<-list()
 diff_list<-list()
@@ -599,42 +600,41 @@ ggplot(mquant_big)+geom_ribbon(aes(x=1:21,ymin=t,ymax=n),alpha=0.5,col="grey")+
   geom_hline(aes(yintercept=0), lty="dashed")+
   xlab("Year")+ylab("Predicted - True Mean Mortality")
 
-load("boxplot_spat.RData")
 #For total predictions
 ggplot()+stat_boxplot(geom="errorbar",aes(y=as.vector(diff_B),x="1A"))+
   geom_boxplot(aes(y=as.vector(diff_B),x="1A"),outlier.shape = NA)+
-  coord_cartesian(y=c(-0.3,0.4))+
+  # coord_cartesian(y=c(-0.3,0.4))+
   geom_hline(aes(yintercept=0),lty="dashed")+
   xlab("Experiment")+ylab("(Predicted - Simulated Biomass Density)/Simulated Biomass Density")
 
 ggplot()+stat_boxplot(geom="errorbar",aes(y=as.vector(diff_R),x="1A"))+
   geom_boxplot(aes(y=as.vector(diff_R),x="1A"),outlier.shape = NA)+
-  coord_cartesian(y=c(-1,10))+
+  # coord_cartesian(y=c(-1,10))+
   geom_hline(aes(yintercept=0),lty="dashed")+
   xlab("Experiment")+ylab("(Predicted - Simulated Total Recruitment)/Simulated Total Recruitment")
 
 ggplot()+stat_boxplot(geom="errorbar",aes(y=as.vector(diff_m),x="1A"))+
   geom_boxplot(aes(y=as.vector(diff_m),x="1A"),outlier.shape = NA)+
-  coord_cartesian(y=c(-1,1.5))+
+  # coord_cartesian(y=c(-1,1.5))+
   geom_hline(aes(yintercept=0),lty="dashed")+
   xlab("Experiment")+ylab("Predicted - Simulated Mean Natural Mortality")
 
 #Knot-based ones
 ggplot()+stat_boxplot(geom="errorbar",aes(y=as.vector(knot_diff_B),x="1A"))+
   geom_boxplot(aes(y=as.vector(knot_diff_B),x="1A"),outlier.shape = NA)+
-  coord_cartesian(y=c(-1,8))+
+  # coord_cartesian(y=c(-1,8))+
   geom_hline(aes(yintercept=0),lty="dashed")+
   xlab("Experiment")+ylab("(Predicted - Simulated Biomass Density)/Simulated Biomass Density")
 
 ggplot()+stat_boxplot(geom="errorbar",aes(y=as.vector(knot_diff_R),x="1A"))+
   geom_boxplot(aes(y=as.vector(knot_diff_R),x="1A"),outlier.shape = NA)+
-  coord_cartesian(y=c(-1,10))+
+  # coord_cartesian(y=c(-1,10))+
   geom_hline(aes(yintercept=0),lty="dashed")+
   xlab("Experiment")+ylab("(Predicted - Simulated Recruit Density)/Simulated Recruit Density")
 
-ggplot()+stat_boxplot(geom="errorbar",aes(y=as.vector(knot_diff_m_estimq),x="1A"))+
-  geom_boxplot(aes(y=as.vector(knot_diff_m_estimq),x="1A"),outlier.shape = NA)+
-  coord_cartesian(y=c(-0.15,0.15))+
+ggplot()+stat_boxplot(geom="errorbar",aes(y=as.vector(knot_diff_m),x="1A"))+
+  geom_boxplot(aes(y=as.vector(knot_diff_m),x="1A"),outlier.shape = NA)+
+  # coord_cartesian(y=c(-0.15,0.15))+
   geom_hline(aes(yintercept=0),lty="dashed")+
   xlab("Experiment")+ylab("Predicted - Simulated Natural Mortality")
 
